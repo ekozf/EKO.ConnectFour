@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EKO.ConnectFour.Api.Controllers;
 
@@ -7,6 +8,7 @@ namespace EKO.ConnectFour.Api.Controllers;
 public class StatusController : Controller
 {
     [HttpGet]
+    [AllowAnonymous]
     public IActionResult Index()
     {
         return Json(new
