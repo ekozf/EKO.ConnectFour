@@ -148,6 +148,7 @@ builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddSingleton<ITokenFactory>(new JwtTokenFactory(tokenSettings));
 builder.Services.AddScoped<IWaitingPool, WaitingPool>();
+builder.Services.AddScoped<ILiveWaitingPool, LiveWaitingPool>();
 builder.Services.AddSingleton<IGameCandidateFactory, GameCandidateFactory>();
 builder.Services.AddSingleton<IGameCandidateRepository, InMemoryGameCandidateRepository>();
 builder.Services.AddSingleton<IGameCandidateMatcher, BasicGameCandidateMatcher>();
@@ -187,6 +188,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapHub<WaitingPoolChatHub>("/waitingpool-chat");
+app.MapHub<WaitingPoolHub>("/matchmaking");
 app.MapHub<GameChatHub>("/game-chat");
+app.MapHub<GameHub>("/play-game");
 
 app.Run();
